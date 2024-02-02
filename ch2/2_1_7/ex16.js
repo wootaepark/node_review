@@ -1,5 +1,5 @@
 const condition = true;
-const promise = new Promise((resolve, reject)=>{
+const promise = new Promise((resolve,reject)=>{
     if(condition){
         resolve('성공');
     }

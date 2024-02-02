@@ -20,4 +20,4 @@ promise
         console.log('무조건');
     })
 
-// ex15 : 프로미스 
+// ex15 : 프로미스
