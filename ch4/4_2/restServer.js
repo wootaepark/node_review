@@ -12,16 +12,16 @@ http.createServer(async (req, res)=>{
         if(req.method === 'GET'){
             if(req.url === '/'){
                 const data = await fs.readFile(path.join(__dirname, 'restFront.html'));
-                res.writeHead(200,{'Content-type' : 'text/html; charset=utf-8'});
+                res.writeHead(200,{'Content-Type' : 'text/html; charset=utf-8'});
                 return res.end(data);
             }
             else if(req.url === '/about'){
                 const data = await fs.readFile(path.join(__dirname,'about.html'));
-                res.writeHead(200,{'Content-type' : 'text/html; charset=utf-8'});
+                res.writeHead(200,{'Content-Type' : 'text/html; charset=utf-8'});
                 return res.end(data);
             }
             else if(req.url === '/users'){
-                res.writeHead(200,{'COntent-type' : 'application/json; charset=utf-8'});
+                res.writeHead(200,{'COntent-Type' : 'application/json; charset=utf-8'});
                 return res.end(JSON.stringify(users));
             }
 
@@ -46,7 +46,7 @@ http.createServer(async (req, res)=>{
                     const {name} = JSON.parse(body);
                     const id = Date.now();
                     users[id] = name;
-                    res.writeHead(201, {'Content-type' : 'text/plain; charset=utf-8'});
+                    res.writeHead(201, {'Content-Type' : 'text/plain; charset=utf-8'});
                     res.end('등록 성공');
                 });
             }
@@ -62,7 +62,7 @@ http.createServer(async (req, res)=>{
                 return req.on('end',()=>{
                     console.log('PUT 본문(Body):', body);
                     users[key] = JSON.parse(body).name; // key 는 name 이다.
-                    res.writeHead(200,{'Content-type': 'application/json; charset=utf-8'});
+                    res.writeHead(200,{'Content-Type': 'application/json; charset=utf-8'});
                     return res.end(JSON.stringify(users));
                 })
             }
@@ -71,7 +71,7 @@ http.createServer(async (req, res)=>{
             if(req.url.startsWith('/user/')){
                 const key = req.url.split('/')[2];
                 delete users[key];
-                res.writeHead(200, {'Content-type' : 'application/json: charset=utf-8'});
+                res.writeHead(200, {'Content-Type' : 'application/json: charset=utf-8'});
                 return res.end(JSON.stringify(users));
             }
         }
