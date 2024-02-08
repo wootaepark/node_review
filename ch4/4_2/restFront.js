@@ -70,3 +70,4 @@ document.getElementById('form').addEventListener('submit', async (e)=>{
     
 });
 
+// 프론트 관련 동작 설정 자바스크립트 코드 
