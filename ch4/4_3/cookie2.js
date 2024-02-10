@@ -9,5 +9,5 @@ const parseCookies = (cookie = '') =>{
         .reduce((acc,[k,v])=>{
             acc[k.trim()] = decodeURIComponent(v);
             return acc;
-        },{});
+        },{}); // 빈 객체에 위에서 설정된 쿠키 문자열을 누적해서 acc에 저장하여 리턴
 }
