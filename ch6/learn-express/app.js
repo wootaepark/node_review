@@ -56,9 +56,6 @@ app.post('/upload', upload.fields([{name : 'image1'},{name:'image2'}]), (req,res
 })
 
 
-
-
-
 app.use((req,res,next)=>{
 
     console.log('모든 요청에 다 실행됩니다');
