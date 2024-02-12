@@ -132,5 +132,6 @@ dist
 .pnp.*
 
 ch5/5_2/package-lock.json
+ch6/learn-express/package-lock.json
 
 
