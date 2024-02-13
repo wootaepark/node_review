@@ -4,10 +4,21 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const indexRouter = require('./routes'); // index 는 생략 가능하다.
+const userRouter = require('./routes/user');
+
 
 dotenv.config(); // process.env를 사용할 수 있도록 하는 명령어
 const app = express();
 app.set('port', process.env.PORT || 3000);
+//app.set('views', path.join(__dirname,'views'));
+app.set('view engine', 'html');// pug 기본 등록 및 설정
+const nunjucks = require('nunjucks');
+
+nunjucks.configure('views',{
+    express : app,
+    watch : true,
+});
 
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname,'public')));
@@ -23,6 +34,13 @@ app.use(session({
         secure : false,
     },name : 'session-cookie',
 }));
+
+app.use('/', indexRouter);
+app.use('/user', userRouter);
+
+app.use((req, res, next)=>{
+    res.status(404).send('Not Found');
+}); // 해당 경로가 아닌 경우 404 에러 ('/' 경로와 '/user' 경로)
 
 
 const multer = require('multer');
@@ -49,6 +67,7 @@ const upload = multer({
 
 app.get('/upload', (req,res)=>{
     res.sendFile(path.join(__dirname, 'multipart.html'));
+    
 });
 app.post('/upload', upload.fields([{name : 'image1'},{name:'image2'}]), (req,res)=>{
     console.log(req.file);
