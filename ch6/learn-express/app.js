@@ -39,7 +39,10 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 
 app.use((req, res, next)=>{
-    res.status(404).send('Not Found');
+    //res.status(404).send('Not Found');
+    const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
+    error.status = 404;
+    next(error);
 }); // 해당 경로가 아닌 경우 404 에러 ('/' 경로와 '/user' 경로)
 
 
@@ -90,9 +93,13 @@ app.get('/',(req,res,next)=>{
     throw new Error('에러는 에러 처리 미들웨어로 갑니다.');
 });
 
+
 app.use((err, req, res, next)=>{
-    console.error(err);
-    res.status(500).send(err.message);
+    
+    res.locals.message = err.message;
+    res.locals.error = process.env.NODE_ENV !== 'production' ? err : {}; // 배포 상태인지 개발자 상태인지에 따라서 에러표시 혹은 빈 표시
+    res.status(err.status||500);
+    res.render('error')
 });
 
 app.listen(app.get('port'),()=>{
