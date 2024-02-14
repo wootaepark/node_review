@@ -16,7 +16,7 @@ app.set('view engine', 'html');// pug 기본 등록 및 설정
 const nunjucks = require('nunjucks');
 
 nunjucks.configure('views',{
-    express : app,
+    express : app, // app.js 와 연결
     watch : true,
 });
 
@@ -55,6 +55,8 @@ try{
     console.error('uploads 폴더가 없어서 uploads 폴더를 생성합니다.');
     fs.mkdirSync('uploads');
 }
+// 위 try 문은 폴더가 없을 시 한번 사용되므로 구지 fs 를 비동기적으로 사용할 필요 없다고 판단
+
 const upload = multer({
     storage : multer.diskStorage({
         destination(req, file, done){
@@ -104,4 +106,4 @@ app.use((err, req, res, next)=>{
 
 app.listen(app.get('port'),()=>{
     console.log(app.get('port'), '번 포트에서 서버 대기 중');
-})
+});
