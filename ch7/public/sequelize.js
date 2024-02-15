@@ -1,6 +1,19 @@
 // 사용자 이름을 눌렀을 때 댓글 로딩 (프론트엔드 코드)
 
-document.querySelectorAll('#user-list tr').forEach((el)=>{
+document.querySelectorAll('#user-list tr').forEach((el,index)=>{
+    if(index>0){
+        el.addEventListener('mouseover', function() {
+        el.style.cursor = 'pointer';  // 마우스를 올릴 때 커서를 포인터로 변경
+        el.style.backgroundColor = '#f0f0f0';  // 원하는 배경색으로 변경
+    });
+
+    el.addEventListener('mouseout', function() {
+        el.style.cursor = 'default';  // 마우스를 내릴 때 기본 커서로 변경
+        el.style.backgroundColor = '';  // 배경색을 초기화
+    });
+    }
+    
+    
     el.addEventListener('click', function(){
         const id=el.querySelector('td').textContent;
         getComment(id);
