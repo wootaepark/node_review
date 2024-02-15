@@ -9,7 +9,8 @@ class Comment extends Sequelize.Model{
             },
             created_at : {
                 type: Sequelize.DATE,
-                allowNull : true,
+                allowNull : false,
+                defaultValue : Sequelize.NOW,
                 
                 
             },
@@ -24,8 +25,8 @@ class Comment extends Sequelize.Model{
         
         })
     }
-    static associate(db){
-            db.Comment.belongsTo(db.User,{forignKey : 'commenter', targetKey : 'id'});
+    static associate(db){   
+            db.Comment.belongsTo(db.User,{foreignKey : 'commenter', targetKey : 'id'});
         
     }
     

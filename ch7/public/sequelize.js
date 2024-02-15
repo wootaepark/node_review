@@ -13,7 +13,7 @@ async function getUser(){
         const res = await axios.get('/users');
         const users = res.data;
         console.log(users);
-        const tbody = document.querySelector('#use-list tbody');
+        const tbody = document.querySelector('#user-list tbody');
         tbody.innerHTML = '';
         users.map(function(user){
             const row = document.createElement('tr');
