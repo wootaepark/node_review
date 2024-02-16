@@ -13,7 +13,8 @@ dotenv.config();
 const app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'html');
-nunjucks.configure('views',{
+
+nunjucks.configure('views',{ // views 폴더를 html 렌더할 곳으로 설정
     express : app,
     watch : true,
 });
