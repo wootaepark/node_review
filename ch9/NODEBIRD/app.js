@@ -6,6 +6,7 @@ const session = require('express-session');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const pageRouter = require('./routes/page');
+const {sequelize} = require('./models');
 
 dotenv.config();
 
@@ -18,6 +19,14 @@ nunjucks.configure('views',{ // views 폴더를 html 렌더할 곳으로 설정
     express : app,
     watch : true,
 });
+sequelize.sync({force : false})
+    .then(()=>{
+        console.log('데이터베이스 연결 성공');
+    })
+    .catch((err)=>{
+        console.error(err);
+    });
+
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
