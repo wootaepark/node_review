@@ -98,9 +98,9 @@ app.get('/',(req,res,next)=>{
 
 app.use((err, req, res, next)=>{
     
-    res.locals.message = err.message;
+    res.locals.message = err.message; // req.locals 는 존재하지 않는다.
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {}; // 배포 상태인지 개발자 상태인지에 따라서 에러표시 혹은 빈 표시
-    res.status(err.status||500);
+    res.status(err.status||500); 
     res.render('error')
 });
 
