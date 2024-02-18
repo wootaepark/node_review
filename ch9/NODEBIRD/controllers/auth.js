@@ -48,3 +48,5 @@ exports.logout = (req, res) =>{
         res.redirect('/');
     });
 };
+
+// 위의 req.login 과 req.logout은 passport 가 실행되면서 req 에 생성되는 것이다.
