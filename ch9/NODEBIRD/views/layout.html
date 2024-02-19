@@ -23,7 +23,12 @@
             </div>
           <input id="my-id" type="hidden" value="{{user.id}}">
           <a id="my-profile" href="/profile" class="btn">내 프로필</a>
-          <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+          <!-- 아래와 같이 분기를 설정함으로서 각각의 로그아웃을 다르게 구현 할 수 있다.-->
+          {% if user.snsId == NULL %}
+            <a id="logout" href="/auth/logout" class="btn">로컬 로그아웃</a>
+          {% else %}
+            <a id="logout" href="/auth/logout" class="btn">카카오 로그아웃</a>
+          {% endif %}  
         {% else %}
           <form id="login-form" action="/auth/login" method="post">
             <div class="input-group">
