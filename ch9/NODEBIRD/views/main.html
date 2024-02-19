@@ -9,7 +9,7 @@
               <textarea id="twit" name="content" maxlength="140"></textarea>
             </div>
             <div class="img-preview">
-              <img id="img-preview" src="" style="display: none;" width="100%" alt="미리보기">
+              <img id="img-preview" src="" style="display: none;" width="250" alt="미리보기">
               <input id="img-url" type="hidden" name="url">
             </div>
             <div>
@@ -55,7 +55,6 @@
             document.getElementById('img-url').value = res.data.url;
             document.getElementById('img-preview').src = res.data.url;
             document.getElementById('img-preview').style.display = 'inline';
-            // img-preview 에 대한 속성을 변경하는 역할
           })
           .catch((err) => {
             console.error(err);
