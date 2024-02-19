@@ -14,7 +14,7 @@ class User extends Sequelize.Model{
             },
             password : {
                 type : Sequelize.STRING(100),
-                allowNull : true,
+                allowNull : true, // 카카오톡 로그인을 위해서 allowNull : true 로 함 (따로 구현하려면 모델을 2개로 만들어야 한다.)
             },
             provider : {
                 type : Sequelize.ENUM('local', 'kakao'),
