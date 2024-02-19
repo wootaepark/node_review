@@ -10,7 +10,7 @@ const authRouter = require('./routes/auth');
 const {sequelize} = require('./models');
 const passport = require('passport');
 const passportConfig = require('./passport'); // 뒤에 /index.js 가 생략되었다. (index 생략 가능)
-
+const postRouter = require('./routes/post');
 
 dotenv.config();
 passportConfig();
@@ -34,6 +34,7 @@ sequelize.sync({force : false})
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img',express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -53,6 +54,7 @@ app.use(passport.session()); // express-session 미들웨어 보다 뒤에 있�
 
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
+app.use('/post',postRouter);
 
 app.use((req, res, next)=>{
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

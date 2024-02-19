@@ -16,9 +16,6 @@ router.get('/profile', isLoggedIn ,renderProfile);
 
 router.get('/join', isNotLoggedIn, renderJoin);
 
-router.get('/profile', renderProfile);
-
-router.get('/join', renderJoin);
 
 router.get('/', renderMain);
 
