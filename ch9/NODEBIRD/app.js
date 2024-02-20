@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
 const {sequelize} = require('./models');
 const passport = require('passport');
 const passportConfig = require('./passport'); // 뒤에 /index.js 가 생략되었다. (index 생략 가능)
@@ -56,6 +57,7 @@ app.use(passport.session()); // express-session 미들웨어 보다 뒤에 있�
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
 app.use('/post', postRouter);
+app.use('/user', userRouter);
 
 app.use((req, res, next)=>{
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
