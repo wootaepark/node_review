@@ -138,3 +138,6 @@ ch7/config
 ch9/NODEBIRD/config
 ch9/NODEBIRD/package-lock.json
 ch9/NODEBIRD/uploads
+
+ch10/nodebird-api/package-lock.json
+ch10/nodebird-api/config

@@ -5,20 +5,18 @@ const nunjucks = require('nunjucks');
 const session = require('express-session');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const pageRouter = require('./routes/page');
+const indexRouter = require('./routes');
 const authRouter = require('./routes/auth');
-const postRouter = require('./routes/post');
-const userRouter = require('./routes/user');
 const {sequelize} = require('./models');
 const passport = require('passport');
-const passportConfig = require('./passport'); // 뒤에 /index.js 가 생략되었다. (index 생략 가능)
+const passportConfig = require('./passport');
+
 
 
 dotenv.config();
-passportConfig();
-
 const app = express();
-app.set('port', process.env.PORT || 8001);
+passportConfig();
+app.set('port', process.env.PORT || 8002);
 app.set('view engine', 'html');
 
 nunjucks.configure('views',{ // views 폴더를 html 렌더할 곳으로 설정
@@ -36,7 +34,6 @@ sequelize.sync({force : false})
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/img',express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -52,12 +49,10 @@ app.use(session({
 
 
 app.use(passport.initialize());
-app.use(passport.session()); // express-session 미들웨어 보다 뒤에 있어야 한다.
+app.use(passport.session()); 
 
-app.use('/', pageRouter);
+app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/post', postRouter);
-app.use('/user', userRouter);
 
 app.use((req, res, next)=>{
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
