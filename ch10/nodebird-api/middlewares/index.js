@@ -1,3 +1,4 @@
+const jwt= require('jsonwebtoken');
 exports.isLoggedIn = (req, res, next) =>{
     if(req.isAuthenticated()){
         next();
@@ -18,33 +19,22 @@ exports.isNotLoggedIn = (req, res, next) =>{
     }
 };
 
-/*
-
- const isLoggedIn = (req, res, next) =>{
-    if(req.isAuthenticated()){
-        next();
+exports.verifyToken = (req, res, next) =>{
+    try{
+        res.locals.decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+        return next();
     }
-    else{
-        res.status(403).send('로그인 필요');
+    catch(error){
+        if(error.name === 'TOkenExpiredError'){// 토큰 유효 기간 초과
+            return res.status(419).json({
+                code : 419,
+                message : '토큰이 만료되었습니다.',
+            });
+        }
+        return res.status(401).json({
+            code : 401,
+            message : '유효하지 않은 토큰입니다.',
+        })
+
     }
-
-};
-
-const isNotLoggedIn = (req, res, next) =>{
-    if(!req.isAuthenticated()){
-        next();
-    }
-    else{
-        const message = encodeURIComponent('로그인 한 상태입니다.');
-        res.redirect(`/?error=${message}`);
-    }
-};
-
-
-module.exports = {isLoggedIn, isNotLoggedIn};
-
-
-
-*/
-
-// 위 코드와 동일한 역할
+}
