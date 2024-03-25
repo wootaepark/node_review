@@ -4,7 +4,7 @@ const {User, Domain} = require('../models');
 exports.renderLogin = async (req, res, next)=>{
     try{
         const user = await User.findOne({
-            where : {id : req.user?.id || null},
+            where : {id : req.user?.id || null}, // where 에는 undefined 가 안되므로 null로 변경 
             include : {model : Domain},
         });
         res.render('login',{

@@ -12,7 +12,7 @@ class Domain extends Sequelize.Model{
                 allowNull : false,
             },
             clientSecret : {
-                type : Sequelize.UUID,
+                type : Sequelize.UUID, // 고유한 문자열 랜덤 부여 
                 allowNull : false,
             }
         },{
